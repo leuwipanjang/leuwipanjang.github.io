@@ -15,11 +15,71 @@
     <section class="card">
       <h1 class="title">LeuwiPanjang</h1>
       <p class="tagline">Secure, lightweight Android SSH client – login with your public key.</p>
-      <a class="download-btn" href="https://github.com/leuwipanjang/leuwipanjang/releases/latest" target="_blank" rel="noopener">
-        📦 Download Latest Release (APK & AAB)
-      </a>
-      <p class="note">The download page is hosted on GitHub Releases. Choose the <code>.apk</code> for direct install or <code>.aab</code> for Play Store upload.</p>
+
+      <div class="download-group" id="download-group">
+        <p class="loading" id="loading">⏳ Fetching latest release...</p>
+      </div>
+
+      <p class="version-info" id="version-info"></p>
+
+      <p class="note">
+        <code>.apk</code> → langsung install di Android &nbsp;|&nbsp;
+        <code>.aab</code> → untuk upload ke Play Store
+      </p>
     </section>
   </main>
+
+  <script>
+    const REPO = 'leuwipanjang/leuwipanjang';
+    const API  = `https://api.github.com/repos/${REPO}/releases/latest`;
+
+    async function fetchRelease() {
+      const group   = document.getElementById('download-group');
+      const loading = document.getElementById('loading');
+      const info    = document.getElementById('version-info');
+
+      try {
+        const res = await fetch(API);
+        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        const data = await res.json();
+
+        const apk = data.assets.find(a => a.name.endsWith('.apk'));
+        const aab = data.assets.find(a => a.name.endsWith('.aab'));
+
+        let html = '';
+
+        if (apk) {
+          html += `<a class="download-btn apk" href="${apk.browser_download_url}" rel="noopener">
+            📱 Download APK <span class="size">(${(apk.size / 1048576).toFixed(1)} MB)</span>
+          </a>`;
+        }
+
+        if (aab) {
+          html += `<a class="download-btn aab" href="${aab.browser_download_url}" rel="noopener">
+            📦 Download AAB <span class="size">(${(aab.size / 1048576).toFixed(1)} MB)</span>
+          </a>`;
+        }
+
+        if (!apk && !aab) {
+          html = `<a class="download-btn" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
+            📦 Go to Latest Release
+          </a>`;
+        }
+
+        loading.remove();
+        group.innerHTML = html;
+        info.textContent = `Latest: ${data.tag_name} — ${new Date(data.published_at).toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' })}`;
+
+      } catch (err) {
+        loading.remove();
+        group.innerHTML = `<a class="download-btn" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
+          📦 Go to Latest Release
+        </a>`;
+        info.textContent = 'Could not fetch release info. Click the button above.';
+      }
+    }
+
+    fetchRelease();
+  </script>
 </body>
 </html>

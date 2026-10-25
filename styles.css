@@ -1,7 +1,9 @@
 /* Premium landing page styling */
 :root {
-  --primary: hsl(210, 85%, 55%); /* vibrant blue */
+  --primary: hsl(210, 85%, 55%);
   --primary-hover: hsl(210, 85%, 45%);
+  --accent: hsl(145, 65%, 42%);
+  --accent-hover: hsl(145, 65%, 35%);
   --bg-gradient: linear-gradient(135deg, hsl(210, 90%, 97%), hsl(210, 60%, 93%));
   --text: hsl(210, 10%, 15%);
   --card-bg: rgba(255, 255, 255, 0.85);
@@ -24,7 +26,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Center content vertically */
 .hero {
   display: flex;
   align-items: center;
@@ -39,7 +40,7 @@ html, body {
   border-radius: 1.2rem;
   box-shadow: 0 8px 24px var(--card-shadow);
   padding: 2.5rem 2rem;
-  max-width: 420px;
+  max-width: 460px;
   width: 100%;
   text-align: center;
 }
@@ -59,43 +60,102 @@ html, body {
   margin-bottom: 1.8rem;
 }
 
+/* Download buttons group */
+.download-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.loading {
+  font-size: 0.95rem;
+  color: hsl(210, 10%, 50%);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 .download-btn {
   display: inline-block;
-  background: var(--primary);
   color: #fff;
   text-decoration: none;
   font-weight: 600;
   padding: 0.75rem 1.4rem;
   border-radius: 0.6rem;
   transition: background 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 320px;
 }
 
-.download-btn:hover {
+.download-btn .size {
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.download-btn.apk {
+  background: var(--accent);
+}
+.download-btn.apk:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.download-btn.aab {
+  background: var(--primary);
+}
+.download-btn.aab:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
 }
 
-.note {
-  margin-top: 1rem;
+/* Fallback single button */
+.download-btn:not(.apk):not(.aab) {
+  background: var(--primary);
+}
+.download-btn:not(.apk):not(.aab):hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.version-info {
   font-size: 0.85rem;
+  color: hsl(210, 10%, 45%);
+  margin-bottom: 1rem;
+}
+
+.note {
+  font-size: 0.82rem;
   color: hsl(210, 10%, 40%);
+  line-height: 1.5;
 }
 
 code {
-  background: rgba(0,0,0,0.05);
-  padding: 0.1rem 0.3rem;
+  background: rgba(0,0,0,0.06);
+  padding: 0.1rem 0.35rem;
   border-radius: 0.3rem;
   font-family: 'Source Code Pro', monospace;
+  font-size: 0.8rem;
 }
 
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --primary: hsl(210, 85%, 65%);
     --primary-hover: hsl(210, 85%, 55%);
+    --accent: hsl(145, 65%, 50%);
+    --accent-hover: hsl(145, 65%, 42%);
     --bg-gradient: linear-gradient(135deg, hsl(210, 15%, 12%), hsl(210, 20%, 18%));
     --text: hsl(0, 0%, 90%);
     --card-bg: rgba(30, 30, 30, 0.85);
     --card-shadow: rgba(0, 0, 0, 0.6);
   }
-  .note { color: hsl(210, 10%, 70%); }
+  .note, .version-info { color: hsl(210, 10%, 65%); }
+  .loading { color: hsl(210, 10%, 65%); }
+  code { background: rgba(255,255,255,0.1); }
 }
