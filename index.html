@@ -3,44 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LeuwiPanjang – Secure Android SSH Client</title>
-  <meta name="description" content="LeuwiPanjang is a lightweight, professional Android SSH client with public‑key authentication. Download the latest release (APK/AAB) from GitHub.">
+  <title>LeuwiPanjang — Android SSH Client</title>
+  <meta name="description" content="A lightweight Android SSH client built for sysadmins and developers. Public-key auth, terminal emulation, and zero bloat.">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="hero">
-    <section class="card">
-      <h1 class="title">LeuwiPanjang</h1>
-      <p class="tagline">Secure, lightweight Android SSH client – login with your public key.</p>
 
-      <div class="download-group" id="download-group">
-        <p class="loading" id="loading">⏳ Fetching latest release...</p>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-icon">▸</span> leuwipanjang
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="https://github.com/leuwipanjang/leuwipanjang" target="_blank" rel="noopener">GitHub</a>
       </div>
+    </div>
+  </nav>
 
-      <p class="version-info" id="version-info"></p>
-
-      <p class="note">
-        <code>.apk</code> → langsung install di Android &nbsp;|&nbsp;
-        <code>.aab</code> → untuk upload ke Play Store
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-badge">Open Source · Native Kotlin · Material 3</p>
+      <h1>SSH your servers<br>from your pocket.</h1>
+      <p class="hero-sub">
+        LeuwiPanjang is a no-nonsense Android SSH client. Public-key login,
+        Ed25519 support, terminal colors, and nothing you don't need.
       </p>
-    </section>
-  </main>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary">Download</a>
+        <a href="https://github.com/leuwipanjang/leuwipanjang" class="btn btn-ghost" target="_blank" rel="noopener">View Source</a>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="term-bar">
+        <span class="term-dot red"></span>
+        <span class="term-dot yellow"></span>
+        <span class="term-dot green"></span>
+        <span class="term-title">leuwipanjang — ssh</span>
+      </div>
+      <div class="term-body">
+        <p><span class="t-prompt">local $</span> ssh -i ~/.ssh/id_ed25519 deploy@192.168.1.50</p>
+        <p class="t-dim">Authenticating with public key "ed25519-key"...</p>
+        <p class="t-success">Welcome to Ubuntu 24.04 LTS</p>
+        <p>&nbsp;</p>
+        <p><span class="t-prompt">deploy@srv $</span> uptime</p>
+        <p class="t-dim"> 14:23:07 up 142 days, 3:41, 1 user, load average: 0.08, 0.03, 0.01</p>
+        <p>&nbsp;</p>
+        <p><span class="t-prompt">deploy@srv $</span> <span class="t-cursor">_</span></p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <h2>Built different.</h2>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-icon">🔑</div>
+        <h3>Public Key Auth</h3>
+        <p>RSA, ECDSA, Ed25519 — generate, import, or paste. Your private keys never leave the device.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">⚡</div>
+        <h3>Lightweight</h3>
+        <p>Under 10 MB installed. No Electron, no WebView, no frameworks. Pure native Kotlin.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🎨</div>
+        <h3>Terminal Colors</h3>
+        <p>Full ANSI 256-color support. Your tmux, htop, and vim look exactly right.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔒</div>
+        <h3>Encrypted Storage</h3>
+        <p>Credentials stored in Android EncryptedSharedPreferences. Hardware-backed when available.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📋</div>
+        <h3>Host Management</h3>
+        <p>Save connections with labels, ports, usernames, and key bindings. One tap to connect.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🛠</div>
+        <h3>Open Source</h3>
+        <p>GPLv3 licensed. Read the code, fork it, contribute. No telemetry, no ads, no tracking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="download" id="download">
+    <h2>Get LeuwiPanjang</h2>
+    <p class="dl-sub">Grab the latest build directly — no account required.</p>
+
+    <div class="dl-cards" id="dl-cards">
+      <div class="dl-loading" id="dl-loading">
+        <div class="spinner"></div>
+        <span>Checking latest release…</span>
+      </div>
+    </div>
+
+    <p class="dl-version" id="dl-version"></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      LeuwiPanjang is open-source software under
+      <a href="https://github.com/leuwipanjang/leuwipanjang/blob/main/LICENSE" target="_blank" rel="noopener">GPLv3</a>.
+      Built in Bandung.
+    </p>
+  </footer>
 
   <script>
     const REPO = 'leuwipanjang/leuwipanjang';
-    const API  = `https://api.github.com/repos/${REPO}/releases/latest`;
 
-    async function fetchRelease() {
-      const group   = document.getElementById('download-group');
-      const loading = document.getElementById('loading');
-      const info    = document.getElementById('version-info');
+    async function loadRelease() {
+      const cards   = document.getElementById('dl-cards');
+      const loading = document.getElementById('dl-loading');
+      const version = document.getElementById('dl-version');
 
       try {
-        const res = await fetch(API);
-        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        const res  = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+        if (!res.ok) throw new Error(res.status);
         const data = await res.json();
 
         const apk = data.assets.find(a => a.name.endsWith('.apk'));
@@ -49,37 +140,65 @@
         let html = '';
 
         if (apk) {
-          html += `<a class="download-btn apk" href="${apk.browser_download_url}" rel="noopener">
-            📱 Download APK <span class="size">(${(apk.size / 1048576).toFixed(1)} MB)</span>
-          </a>`;
+          const mb = (apk.size / 1048576).toFixed(1);
+          html += `
+            <a class="dl-card" href="${apk.browser_download_url}">
+              <span class="dl-icon">📱</span>
+              <span class="dl-info">
+                <strong>APK</strong>
+                <small>Direct install · ${mb} MB</small>
+              </span>
+              <span class="dl-arrow">↓</span>
+            </a>`;
         }
 
         if (aab) {
-          html += `<a class="download-btn aab" href="${aab.browser_download_url}" rel="noopener">
-            📦 Download AAB <span class="size">(${(aab.size / 1048576).toFixed(1)} MB)</span>
-          </a>`;
+          const mb = (aab.size / 1048576).toFixed(1);
+          html += `
+            <a class="dl-card" href="${aab.browser_download_url}">
+              <span class="dl-icon">📦</span>
+              <span class="dl-info">
+                <strong>AAB</strong>
+                <small>Play Store upload · ${mb} MB</small>
+              </span>
+              <span class="dl-arrow">↓</span>
+            </a>`;
         }
 
         if (!apk && !aab) {
-          html = `<a class="download-btn" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
-            📦 Go to Latest Release
-          </a>`;
+          html = `
+            <a class="dl-card" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
+              <span class="dl-icon">🔗</span>
+              <span class="dl-info">
+                <strong>GitHub Releases</strong>
+                <small>View all assets</small>
+              </span>
+              <span class="dl-arrow">→</span>
+            </a>`;
         }
 
         loading.remove();
-        group.innerHTML = html;
-        info.textContent = `Latest: ${data.tag_name} — ${new Date(data.published_at).toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' })}`;
+        cards.innerHTML = html;
 
-      } catch (err) {
+        const d = new Date(data.published_at);
+        const dateStr = d.toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' });
+        version.textContent = `${data.tag_name} · ${dateStr}`;
+
+      } catch (e) {
         loading.remove();
-        group.innerHTML = `<a class="download-btn" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
-          📦 Go to Latest Release
-        </a>`;
-        info.textContent = 'Could not fetch release info. Click the button above.';
+        cards.innerHTML = `
+          <a class="dl-card" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
+            <span class="dl-icon">🔗</span>
+            <span class="dl-info">
+              <strong>GitHub Releases</strong>
+              <small>Go to download page</small>
+            </span>
+            <span class="dl-arrow">→</span>
+          </a>`;
       }
     }
 
-    fetchRelease();
+    loadRelease();
   </script>
 </body>
 </html>
