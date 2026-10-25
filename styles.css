@@ -1,0 +1,101 @@
+/* Premium landing page styling */
+:root {
+  --primary: hsl(210, 85%, 55%); /* vibrant blue */
+  --primary-hover: hsl(210, 85%, 45%);
+  --bg-gradient: linear-gradient(135deg, hsl(210, 90%, 97%), hsl(210, 60%, 93%));
+  --text: hsl(210, 10%, 15%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-shadow: rgba(0, 0, 0, 0.15);
+  --font-family: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  color: var(--text);
+  background: var(--bg-gradient);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Center content vertically */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 24px var(--card-shadow);
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  background: var(--primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.8rem;
+}
+
+.download-btn {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.4rem;
+  border-radius: 0.6rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.download-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: hsl(210, 10%, 40%);
+}
+
+code {
+  background: rgba(0,0,0,0.05);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.3rem;
+  font-family: 'Source Code Pro', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: hsl(210, 85%, 65%);
+    --primary-hover: hsl(210, 85%, 55%);
+    --bg-gradient: linear-gradient(135deg, hsl(210, 15%, 12%), hsl(210, 20%, 18%));
+    --text: hsl(0, 0%, 90%);
+    --card-bg: rgba(30, 30, 30, 0.85);
+    --card-shadow: rgba(0, 0, 0, 0.6);
+  }
+  .note { color: hsl(210, 10%, 70%); }
+}
