@@ -102,11 +102,25 @@
     <h2>Get LeuwiPanjang</h2>
     <p class="dl-sub">Grab the latest build directly — no account required.</p>
 
+    <!-- Fixed-name assets attached to every release: these links always serve the newest
+         build and work even when the GitHub API below cannot be reached. -->
     <div class="dl-cards" id="dl-cards">
-      <div class="dl-loading" id="dl-loading">
-        <div class="spinner"></div>
-        <span>Checking latest release…</span>
-      </div>
+      <a class="dl-card" id="dl-apk" href="https://github.com/leuwipanjang/leuwipanjang/releases/latest/download/leuwipanjang.apk">
+        <span class="dl-icon">📱</span>
+        <span class="dl-info">
+          <strong>APK</strong>
+          <small>Direct install</small>
+        </span>
+        <span class="dl-arrow">↓</span>
+      </a>
+      <a class="dl-card" id="dl-aab" href="https://github.com/leuwipanjang/leuwipanjang/releases/latest/download/leuwipanjang.aab">
+        <span class="dl-icon">📦</span>
+        <span class="dl-info">
+          <strong>AAB</strong>
+          <small>Play Store upload</small>
+        </span>
+        <span class="dl-arrow">↓</span>
+      </a>
     </div>
 
     <p class="dl-version" id="dl-version"></p>
@@ -124,77 +138,27 @@
   <script>
     const REPO = 'leuwipanjang/leuwipanjang';
 
+    // Only adds the version and file sizes; the download links above work without it.
     async function loadRelease() {
-      const cards   = document.getElementById('dl-cards');
-      const loading = document.getElementById('dl-loading');
       const version = document.getElementById('dl-version');
-
       try {
-        const res  = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+        const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
         if (!res.ok) throw new Error(res.status);
         const data = await res.json();
 
-        const apk = data.assets.find(a => a.name.endsWith('.apk'));
-        const aab = data.assets.find(a => a.name.endsWith('.aab'));
-
-        let html = '';
-
-        if (apk) {
-          const mb = (apk.size / 1048576).toFixed(1);
-          html += `
-            <a class="dl-card" href="${apk.browser_download_url}">
-              <span class="dl-icon">📱</span>
-              <span class="dl-info">
-                <strong>APK</strong>
-                <small>Direct install · ${mb} MB</small>
-              </span>
-              <span class="dl-arrow">↓</span>
-            </a>`;
+        for (const [ext, id, label] of [['apk', 'dl-apk', 'Direct install'], ['aab', 'dl-aab', 'Play Store upload']]) {
+          const asset = data.assets.find(a => a.name.endsWith('.' + ext));
+          if (asset) {
+            const mb = (asset.size / 1048576).toFixed(1);
+            document.querySelector(`#${id} small`).textContent = `${label} · ${mb} MB`;
+          }
         }
-
-        if (aab) {
-          const mb = (aab.size / 1048576).toFixed(1);
-          html += `
-            <a class="dl-card" href="${aab.browser_download_url}">
-              <span class="dl-icon">📦</span>
-              <span class="dl-info">
-                <strong>AAB</strong>
-                <small>Play Store upload · ${mb} MB</small>
-              </span>
-              <span class="dl-arrow">↓</span>
-            </a>`;
-        }
-
-        if (!apk && !aab) {
-          html = `
-            <a class="dl-card" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
-              <span class="dl-icon">🔗</span>
-              <span class="dl-info">
-                <strong>GitHub Releases</strong>
-                <small>View all assets</small>
-              </span>
-              <span class="dl-arrow">→</span>
-            </a>`;
-        }
-
-        loading.remove();
-        cards.innerHTML = html;
 
         const d = new Date(data.published_at);
         const dateStr = d.toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' });
         version.textContent = `${data.tag_name} · ${dateStr}`;
-
       } catch (e) {
-        loading.remove();
-        cards.innerHTML = `
-          <a class="dl-card" href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">
-            <span class="dl-icon">🔗</span>
-            <span class="dl-info">
-              <strong>GitHub Releases</strong>
-              <small>Go to download page</small>
-            </span>
-            <span class="dl-arrow">→</span>
-          </a>`;
+        version.innerHTML = `<a href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">Release notes on GitHub</a>`;
       }
     }
 
