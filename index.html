@@ -109,7 +109,7 @@
         <span class="dl-icon">📱</span>
         <span class="dl-info">
           <strong>APK</strong>
-          <small>Direct install</small>
+          <small id="dl-apk-info">Direct install</small>
         </span>
         <span class="dl-arrow">↓</span>
       </a>
@@ -117,7 +117,7 @@
         <span class="dl-icon">📦</span>
         <span class="dl-info">
           <strong>AAB</strong>
-          <small>Play Store upload</small>
+          <small id="dl-aab-info">Play Store upload</small>
         </span>
         <span class="dl-arrow">↓</span>
       </a>
@@ -135,34 +135,6 @@
     </p>
   </footer>
 
-  <script>
-    const REPO = 'leuwipanjang/leuwipanjang';
-
-    // Only adds the version and file sizes; the download links above work without it.
-    async function loadRelease() {
-      const version = document.getElementById('dl-version');
-      try {
-        const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
-        if (!res.ok) throw new Error(res.status);
-        const data = await res.json();
-
-        for (const [ext, id, label] of [['apk', 'dl-apk', 'Direct install'], ['aab', 'dl-aab', 'Play Store upload']]) {
-          const asset = data.assets.find(a => a.name.endsWith('.' + ext));
-          if (asset) {
-            const mb = (asset.size / 1048576).toFixed(1);
-            document.querySelector(`#${id} small`).textContent = `${label} · ${mb} MB`;
-          }
-        }
-
-        const d = new Date(data.published_at);
-        const dateStr = d.toLocaleDateString('id-ID', { year:'numeric', month:'long', day:'numeric' });
-        version.textContent = `${data.tag_name} · ${dateStr}`;
-      } catch (e) {
-        version.innerHTML = `<a href="https://github.com/${REPO}/releases/latest" target="_blank" rel="noopener">Release notes on GitHub</a>`;
-      }
-    }
-
-    loadRelease();
-  </script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>

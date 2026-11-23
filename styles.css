@@ -189,18 +189,6 @@ a:hover{text-decoration:underline}
   display:flex;flex-direction:column;gap:.75rem;
   align-items:center;
 }
-.dl-loading{
-  display:flex;align-items:center;gap:.7rem;
-  color:var(--text-2);font-size:.88rem;
-}
-.spinner{
-  width:18px;height:18px;
-  border:2px solid var(--border);
-  border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 .dl-card{
   display:flex;align-items:center;gap:1rem;
