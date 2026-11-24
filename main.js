@@ -1,12 +1,13 @@
-import { getJSON } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.36/api.min.js";
-import { setInner, setInnerText } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.36/element.min.js";
+import { getJSON } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.37/api.min.js";
+import { setInner, setInnerText } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.37/element.min.js";
 
 const REPO = "leuwipanjang/leuwipanjang";
 
 // The download links in the page work on their own; this only adds the version and sizes.
 // The GitHub API allows 60 unauthenticated requests per hour per IP, often shared on mobile
 // networks, so one answer is reused for an hour without asking again. After that, if the
-// request fails (rate limited, offline), the last stored answer is shown instead.
+// request fails (rate limited, offline), the last stored answer is shown instead, and while
+// GitHub says the quota is used up (X-RateLimit-Reset) no request is sent at all.
 // Only the four fields used below are stored, not the whole ~10 KB release.
 const sizeOf = (assets, ext) => assets.find(a => a.name.endsWith("." + ext))?.size;
 const { status, data } = await getJSON(`https://api.github.com/repos/${REPO}/releases/latest`, null, {
