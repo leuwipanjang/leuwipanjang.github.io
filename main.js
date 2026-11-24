@@ -1,5 +1,5 @@
-import { getJSON } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.38/api.min.js";
-import { setInner, setInnerText } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.38/element.min.js";
+import { getJSON } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.40/api.min.js";
+import { setInner, setInnerText } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.40/element.min.js";
 
 const REPO = "leuwipanjang/leuwipanjang";
 
